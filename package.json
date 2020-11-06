@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --mode=development --hot",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "server": "node-env-run server --exec nodemon | pino-colada",
+    "dev": "run-p server start"
   },
   "repository": {
     "type": "git",
@@ -16,14 +18,22 @@
   "bugs": {
     "url": "https://github.com/ViniBrito/CES-26-Lista-5/issues"
   },
+  "proxy": "http://localhost:8000",
   "homepage": "https://github.com/ViniBrito/CES-26-Lista-5#readme",
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.5",
     "babel-loader": "^8.1.0",
+    "body-parser": "^1.19.0",
     "css-loader": "^5.0.1",
+    "express": "^4.17.1",
+    "express-pino-logger": "^5.0.0",
     "html-webpack-plugin": "^4.5.0",
+    "node-env-run": "^4.0.2",
+    "nodemon": "^2.0.6",
+    "npm-run-all": "^4.1.5",
+    "pino-colada": "^2.1.0",
     "style-loader": "^2.0.0",
     "webpack": "^5.4.0",
     "webpack-cli": "^4.2.0",
