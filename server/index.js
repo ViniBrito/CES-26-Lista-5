@@ -2,23 +2,35 @@
 const express = require('express')
 	, app = express()
     , bodyParser = require('body-parser')
+    , fs = require('fs')
+    , prom = fs.promises
+    , path = require('path')
 
 const botao = "<br><br><button style='border-radius: 20px' onclick='history.back()'>Voltar à página inicial</button>";
 
 app.use(express.static('build'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.get('/server/data', async function(req, res){
+    const data = await prom.readFile(path.join(__dirname, 'data.json'), 'utf-8');
+    res.send(data);
+});
 
-app.get('/calculate', function(req, res){
-    var texto = "<h1>Resultado da avaliação</h1>\nSeu IMC é ";
-    var h = req.query.height/100;
-        w = req.query.weight;
-        i = w/h**2;
-    texto+=parseFloat(i).toFixed(2)+" e você está oficialmente ";
-    if(i < 18.5) texto+="<b style='color: red'>magro</b>";
-    else if(i < 25.0) texto+="<b style='color: grey'>normal</b>"
-    else if(i < 30.0) texto+="<b style='color: orange'>com sobrepeso</b>"
-    else if(i < 40.0) texto+="<b style='color: red'>obeso</b>"
-    else texto+="<b style='color: #C10606'>gravemente obeso</b>"
+app.get('/register', function(req, res){
+    var texto = "Cadastro realizado com sucesso.";
+    var n = req.query.name;
+        a = req.query.age;
+    try{
+        if(isNaN(a)) throw "<b>Erro</b>: Cadastro inválido.";
+        else if(a < 18) throw "<b>Erro</b>: Usuário menor de idade.";
+        else{
+            var labels = '{ "nome": "'+n+'", "idade": '+a+' }';
+            fs.writeFile("./server/data.json", labels, function(err, result) {
+                if(err) console.log('erro', err);
+            });
+        }
+    }
+    catch(err){
+        texto=err;
+    }
     res.send(texto+botao);
 });
 

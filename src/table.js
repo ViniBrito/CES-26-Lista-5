@@ -20,6 +20,17 @@ function trigger(){
 		h2.innerHTML = "Idade";
 		r1.appendChild(h1);
 		r1.appendChild(h2);
+		var xhttp = new XMLHttpRequest();
+		xhttp.addEventListener('load', () => {
+			if(xhttp.readyState == 4 && xhttp.status == 200){
+				var s = xhttp.responseText;
+				var obj = JSON.parse(s);
+				d1.innerHTML = obj.nome;
+				d2.innerHTML = obj.idade;
+			}
+		});
+		xhttp.open("GET", "/server/data", true);
+		xhttp.send();
 		r2.appendChild(d1);
 		r2.appendChild(d2);
 		y.appendChild(r1);
