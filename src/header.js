@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Definindo o componente Cabeçalho
 const Header = () => {
   return (
       <marquee behavior="scroll" direction="left">

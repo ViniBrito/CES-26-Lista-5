@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Definindo o componente Formulário
 const Form = () => {
   return (
   	<form action='register' style={{

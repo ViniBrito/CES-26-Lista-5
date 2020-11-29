@@ -1,8 +1,9 @@
 import React from 'react';
 
-
+// Booleana que detecta clique no botão
 var clicked=false;
 
+// Função que renderiza/remove a tabela, ao clique do botão
 function trigger(){
 	if(!clicked){
 		clicked=true;
@@ -21,6 +22,7 @@ function trigger(){
 		r1.appendChild(h1);
 		r1.appendChild(h2);
 		var xhttp = new XMLHttpRequest();
+		// Definindo processamento dos dados no servidor
 		xhttp.addEventListener('load', () => {
 			if(xhttp.readyState == 4 && xhttp.status == 200){
 				var s = xhttp.responseText;
@@ -29,6 +31,7 @@ function trigger(){
 				d2.innerHTML = obj.idade;
 			}
 		});
+		// Solicitando dados no servidor
 		xhttp.open("GET", "/server/data", true);
 		xhttp.send();
 		r2.appendChild(d1);
@@ -47,6 +50,7 @@ function trigger(){
 	}
 }
 
+// Definindo componente Tabela de Exibição dos Dados
 const Table = () => {
   return (
   		<div id="data" style={{
